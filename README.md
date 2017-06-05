@@ -21,7 +21,7 @@ This gem supports
 Include it in your `Gemfile`:
 
 ```ruby
-gem 'travelpayouts_api'
+gem 'travelpayouts_api', github: 'nimbl3/travelpayouts_api'
 ```
 
 Create an initializer in config/initializers:
