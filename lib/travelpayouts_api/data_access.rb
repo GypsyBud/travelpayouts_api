@@ -2,47 +2,47 @@ module TravelPayouts
   class Api
     module DataAccess
       def cheap_prices_url
-        'http://api.travelpayouts.com/v1/prices/cheap'
+        'https://api.travelpayouts.com/v1/prices/cheap'
       end
 
       def direct_prices_url
-        'http://api.travelpayouts.com/v1/prices/direct'
+        'https://api.travelpayouts.com/v1/prices/direct'
       end
 
       def calendar_prices_url
-        'http://api.travelpayouts.com/v1/prices/calendar'
+        'https://api.travelpayouts.com/v1/prices/calendar'
       end
 
       def airline_directions_url
-        'http://api.travelpayouts.com/v1/airline-directions'
+        'https://api.travelpayouts.com/v1/airline-directions'
       end
 
       def countries_data_url
-        'http://api.travelpayouts.com/data/countries.json'
+        'https://api.travelpayouts.com/data/countries.json'
       end
 
       def cities_data_url
-        'http://api.travelpayouts.com/data/cities.json'
+        'https://api.travelpayouts.com/data/cities.json'
       end
 
       def airports_data_url
-        'http://api.travelpayouts.com/data/airports.json'
+        'https://api.travelpayouts.com/data/airports.json'
       end
 
       def airlines_data_url
-        'http://api.travelpayouts.com/data/airlines.json'
+        'https://api.travelpayouts.com/data/airlines.json'
       end
 
       def airline_alliances_data_url
-        'http://api.travelpayouts.com/data/airlines_alliances.json'
+        'https://api.travelpayouts.com/data/airlines_alliances.json'
       end
 
       def planes_data_url
-        'http://api.travelpayouts.com/data/planes.json'
+        'https://api.travelpayouts.com/data/planes.json'
       end
 
       def routes_data_url
-        'http://api.travelpayouts.com/data/routes.json'
+        'https://api.travelpayouts.com/data/routes.json'
       end
 
       def where_am_i_url
