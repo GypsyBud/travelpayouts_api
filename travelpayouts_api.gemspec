@@ -6,7 +6,7 @@ require 'travelpayouts_api/version'
 Gem::Specification.new do |s|
   s.name        = 'travelpayouts_api'
   s.version     = TravelPayouts::VERSION
-  s.date        = '2017-06-05'
+  s.date        = '2017-06-29'
   s.summary     = 'Travelpayouts API'
   s.description = 'Ruby gem for travelpayouts api'
   s.authors     = ['Vitaly Dyatlov', 'Nimbl3']
