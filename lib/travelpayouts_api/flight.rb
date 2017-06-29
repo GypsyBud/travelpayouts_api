@@ -2,15 +2,15 @@ module TravelPayouts
   class Api
     module Flight
       def flight_search_url
-        'http://api.travelpayouts.com/v1/flight_search'
+        'https://api.travelpayouts.com/v1/flight_search'
       end
 
       def flight_search_results_url
-        'http://api.travelpayouts.com/v1/flight_search_results'
+        'https://api.travelpayouts.com/v1/flight_search_results'
       end
 
       def flight_search_link_url(search_id:, terms_url:)
-        "http://api.travelpayouts.com/v1/flight_searches/#{search_id}/clicks/#{terms_url}.json"
+        "https://api.travelpayouts.com/v1/flight_searches/#{search_id}/clicks/#{terms_url}.json"
       end
 
       def autocomplete_places_url
