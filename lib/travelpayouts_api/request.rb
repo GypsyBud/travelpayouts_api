@@ -4,13 +4,17 @@ module TravelPayouts
       require 'json'
       require 'hashie/mash'
 
+      REST_CLIENT_CONFIG = {
+        timeout: 20
+      }.freeze
+
       def request(url, params, skip_parse: false)
         params[:currency] ||= config.currency
         params[:locale]   ||= config.locale
 
         params.delete_if{ |_, v| v == nil }
 
-        data = RestClient.get url, request_headers.merge(params: params)
+        data = RestClient.get(url, request_headers.merge(params: params, **REST_CLIENT_CONFIG))
         skip_parse ? data : respond(data)
       rescue RestClient::Exception => e
         err = Error.new(e.response, e.http_code)
@@ -82,8 +86,10 @@ module TravelPayouts
       end
 
       def run_request(url, params, headers, method)
-        return respond RestClient.post url, params.to_json, headers if method == :post
-        respond RestClient.get url, headers.merge(params: params)
+        return respond (RestClient.post url, params.to_json, headers.merge(**REST_CLIENT_CONFIG)) if method == :post
+        respond (RestClient.get url, headers.merge(params: params, **REST_CLIENT_CONFIG))
+      rescue RestClient::Exceptions::ReadTimeout, RestClient::Exceptions::OpenTimeout
+        respond ({})
       rescue RestClient::Exception => e
         err = Error.new(e.response, e.http_code)
         err.message = e.message
