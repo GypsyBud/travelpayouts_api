@@ -4,14 +4,25 @@ module TravelPayouts
       require 'json'
       require 'hashie/mash'
 
+      REST_CLIENT_CONFIG = {
+        timeout: 25
+      }.freeze
+
       def request(url, params, skip_parse: false)
         params[:currency] ||= config.currency
         params[:locale]   ||= config.locale
 
         params.delete_if{ |_, v| v == nil }
 
-        data = RestClient.get url, request_headers.merge(params: params)
+        data = RestClient::Request.execute(
+          method: :get,
+          url: url,
+          headers: request_headers.merge(params: params),
+          **REST_CLIENT_CONFIG
+        )
         skip_parse ? data : respond(data)
+      rescue RestClient::Exceptions::ReadTimeout, RestClient::Exceptions::OpenTimeout
+        respond ({})
       rescue RestClient::Exception => e
         err = Error.new(e.response, e.http_code)
         err.message = e.message
@@ -82,8 +93,28 @@ module TravelPayouts
       end
 
       def run_request(url, params, headers, method)
-        return respond RestClient.post url, params.to_json, headers if method == :post
-        respond RestClient.get url, headers.merge(params: params)
+        if method == :post
+          api_response = RestClient::Request.execute(
+            method: :post,
+            url: url,
+            payload: params.to_json,
+            headers: headers,
+            **REST_CLIENT_CONFIG
+          )
+
+          return respond api_response
+        end
+
+        api_response = RestClient::Request.execute(
+          method: :get,
+          url: url,
+          headers: headers.merge(params: params),
+          **REST_CLIENT_CONFIG
+        )
+
+        respond api_response
+      rescue RestClient::Exceptions::ReadTimeout, RestClient::Exceptions::OpenTimeout
+        respond ({})
       rescue RestClient::Exception => e
         err = Error.new(e.response, e.http_code)
         err.message = e.message
